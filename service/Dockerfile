@@ -27,8 +27,5 @@ WORKDIR /toolkit
 COPY  . /toolkit/
 
 RUN pip3 install -r requirements.txt
-RUN python3 atmosphere.py
 
-RUN . ./bluetooth-utils.sh
-
-ENTRYPOINT [ "" ]
+CMD [ ". ./bluetooth-utils.sh" ]
