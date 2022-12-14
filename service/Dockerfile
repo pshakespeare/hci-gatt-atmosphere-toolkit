@@ -18,11 +18,11 @@ RUN apt-get update \
   && apt-get -y install libglib2.0-dev libdbus-1-dev libusb-dev libudev-dev libical-dev \
   && wget https://www.kernel.org/pub/linux/bluetooth/bluez-5.18.tar.xz \
   && dpkg --get-selections | grep -v deinstall | grep bluez \
-  && tar xvf bluez-5.18.tar.xz \
+  # && tar xvf bluez-5.18.tar.xz \
   # && systemd libreadline-dev \
   # && .configure --enable-library \
   # && make -j8 && sudo make install \
-  && cp attrib/gatttool /usr/local/bin/ \
+  # && cp attrib/gatttool /usr/local/bin/ \
   && rm -rf /var/lib/apt/lists/* 
 
 RUN useradd -ms /bin/bash atmosphere
