@@ -6,33 +6,28 @@ RUN echo 'APT::Install-Recommends "0";' >> /etc/apt/apt.conf.d/00-docker
 
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN apt-get update && apt-get install -y sudo
+
+USER root
+
 RUN apt-get update \
-  && apt install sudo \
+  && apt-get -y install make gcc mono-mcs  \
   && apt update && apt install -y tcl \ 
   && apt-get install -y ca-certificates openssl \
   && apt-get install -y python3 \
+  && apt install -y python3-pip \
   && apt-get install -y bluez dbus \
   && apt install -y wget \
   && apt-get upgrade \
   && apt-get install -y tar xz-utils\
-  && apt-get -y install libglib2.0-dev libdbus-1-dev libusb-dev libudev-dev libical-dev \
-  && wget https://www.kernel.org/pub/linux/bluetooth/bluez-5.18.tar.xz \
-  && dpkg --get-selections | grep -v deinstall | grep bluez \
-  # && tar xvf bluez-5.18.tar.xz \
-  # && systemd libreadline-dev \
-  # && .configure --enable-library \
-  # && make -j8 && sudo make install \
-  # && cp attrib/gatttool /usr/local/bin/ \
   && rm -rf /var/lib/apt/lists/* 
 
-RUN useradd -ms /bin/bash atmosphere
-RUN usermod -aG sudo atmosphere
-
-
-USER atmosphere
 
 WORKDIR /toolkit
 COPY  . /toolkit/
+
+RUN pip3 install -r requirements.txt
+RUN python3 atmosphere.py
 
 RUN . ./bluetooth-utils.sh
 

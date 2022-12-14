@@ -10,9 +10,7 @@
 # Dependency:
 #     
 # ------------------------------------------------------------------
-tar xvf bluez-5.18.tar.xz
-systemd libreadline-dev
-.configure --enable-library
-make -j8 && sudo make install
-cp attrib/gatttool /usr/local/bin/
+# start services
+service dbus start
+service bluetooth start
 # --- END ----------------------------------------------------------
